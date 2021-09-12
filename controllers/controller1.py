@@ -1,8 +1,24 @@
-from sqlalchemy import create_engine, text
-import psycopg2
+from models.Statuses import Statuses
+from fastapi import HTTPException
 
-engine = create_engine('postgresql+psycopg2://postgres:nomad_43@localhost:5432/testdb')
 
-result_set = engine.execute(text("INSERT INTO shema1.status (id, name) VALUES (:id, :name)"), '123', 'text')
+def statuses(db):
+    try:
+        a = db.query(Statuses).all()
+        return a
+    except:
+        raise HTTPException(status_code=500)
 
-engine.execute(table_addresses.insert(), id=321, name='text')
+
+def pushStatus(status, db):
+    status = Statuses(name=status)
+    db.add(status)
+    db.commit()
+    return status
+
+
+def getStatus(id, db):
+    try:
+        return str(id)
+    except:
+        HTTPException(status_code=400, detail="not found")
