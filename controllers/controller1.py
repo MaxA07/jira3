@@ -4,21 +4,27 @@ from fastapi import HTTPException
 
 def statuses(db):
     try:
-        a = db.query(Statuses).all()
-        return a
+        statusList = db.query(Statuses).all()
+        return statusList
     except:
         raise HTTPException(status_code=500)
 
 
 def pushStatus(status, db):
-    status = Statuses(name=status)
-    db.add(status)
-    db.commit()
-    return status
-
-
-def getStatus(id, db):
     try:
-        return str(id)
+        status = Statuses(name=status)
+        db.add(status)
+        db.commit()
+        return status
     except:
-        HTTPException(status_code=400, detail="not found")
+        raise HTTPException(status_code=500)
+
+
+def delete_status_by_id(id, db):
+    try:
+        record = db.query(Statuses).get(id)
+        db.delete(record)
+        db.commit()
+        return id
+    except:
+        raise HTTPException(status_code=404, detail="not found")
