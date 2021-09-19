@@ -1,9 +1,8 @@
 from database import SessionLocal
-from controllers.controller1 import statuses, pushStatus, getStatus
+from controllers.controller1 import statuses, pushStatus, delete_status_by_id
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
-from fastapi.encoders import jsonable_encoder
-from models.Statuses import StatusModel
+from cruds.StatusCrud import GetStatusModel
 
 app = FastAPI(debug=True)
 
@@ -16,22 +15,20 @@ def get_db():
     finally:
         db.close()
 
-@app.get('/test')
-def getTest():
-    return jsonable_encoder({'a': '12'})
-
 
 @app.get('/statuses')
 def status(db: Session = Depends(get_db)):
     result = statuses(db)
     return result
 
+
 @app.post('/statuses')
-def postStatus(status: StatusModel, db: Session = Depends(get_db)):
+def post_status(status: GetStatusModel, db: Session = Depends(get_db)):
     result = pushStatus(status.name, db)
     return result
 
-#
-# @app.get('statuses/{id}')
-# def getStatus(id):
-#     getStatus(id, db)
+
+@app.delete('/statuses/', include_in_schema=False)
+def delete_status(id, db: Session = Depends(get_db)):
+    result = delete_status_by_id(id, db)
+    return result
