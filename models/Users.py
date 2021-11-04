@@ -3,8 +3,8 @@ import uuid
 from database import Base
 
 
-class Project(Base):
-    __tablename__ = 'projects'
+class Users(Base):
+    __tablename__ = 'users'
     id = Column(String(), primary_key=True, nullable=False)
     name = Column(String())
 

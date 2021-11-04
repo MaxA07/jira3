@@ -1,2 +1,2 @@
-password = '123'
-address = 'localhost:5432'
+password = 'nomad_43'
+address = 'localhost:8000'
