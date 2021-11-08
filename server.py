@@ -1,8 +1,10 @@
 from database import SessionLocal
 from controllers.status_controller import statuses, pushStatus, delete_status_by_id
+from controllers.users_controller import users, addUser, addProject, delete_user_by_id
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from cruds.StatusCrud import GetStatusModel
+from cruds.User_Cruds import GetUserModel
 
 app = FastAPI(debug=True)
 
@@ -32,4 +34,13 @@ def post_status(status: GetStatusModel, db: Session = Depends(get_db)):
 def delete_status(id, db: Session = Depends(get_db)):
     result = delete_status_by_id(id, db)
     return result
+
+
+@app.get('/users')
+def get_data(db: Session = Depends(get_db)):
+    result = users(db)
+    return result
+
+
+
 

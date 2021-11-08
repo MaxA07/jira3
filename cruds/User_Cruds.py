@@ -7,8 +7,8 @@ class GetUserModel(BaseModel):
 
 class SetUserModel(BaseModel):
     name: str
-    id: int
+    id: str
 
 
 class DeleteUserModel(BaseModel):
-    id: int
+    id: str

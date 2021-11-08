@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from config import password, address
+from config import password, address, dbname
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://postgres:{password}@{address}/users'
+SQLALCHEMY_DATABASE_URL = f'postgresql://postgres:{password}@{address}/{dbname}'
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL

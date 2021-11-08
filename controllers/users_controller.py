@@ -9,14 +9,25 @@ def users(db):
         raise HTTPException(status_code=500)
 
 
-def addUser(user, db):
+def addUser(user, project, db):
     try:
         user = Users(name=user)
-        db.add(user)
+        userp = Users(project=project)
+        db.add(user, userp)
         db.commit()
-        return user
+        return [user, userp]
     except:
         raise HTTPException(status_code=500)
+
+
+def addProject(user, db):
+        try:
+            user = Users(project=user)
+            db.add(user)
+            db.commit()
+            return user
+        except:
+            raise HTTPException(status_code=500)
 
 
 def delete_user_by_id(id, db):
