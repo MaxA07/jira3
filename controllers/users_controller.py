@@ -1,6 +1,7 @@
 from models.Users import Users
 from fastapi import HTTPException
 
+
 def users(db):
     try:
         usersList = db.query(Users).all()
@@ -9,32 +10,12 @@ def users(db):
         raise HTTPException(status_code=500)
 
 
-def addUser(user, project, db):
+def addUser(user, position, db):
     try:
-        user = Users(name=user)
-        userp = Users(project=project)
-        db.add(user, userp)
+        user = Users(name=user, position=position)
+        db.add(user)
         db.commit()
-        return [user, userp]
+        return user
     except:
         raise HTTPException(status_code=500)
 
-
-def addProject(user, db):
-        try:
-            user = Users(project=user)
-            db.add(user)
-            db.commit()
-            return user
-        except:
-            raise HTTPException(status_code=500)
-
-
-def delete_user_by_id(id, db):
-    try:
-        record = db.query(Users).get(id)
-        db.delete(record)
-        db.commit()
-        return id
-    except:
-        raise HTTPException(status_code=404, detail="not found")
