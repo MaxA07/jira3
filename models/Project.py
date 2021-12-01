@@ -2,6 +2,7 @@ from sqlalchemy import Column, String
 import uuid
 from database import Base
 
+
 class Project(Base):
     __tablename__ = 'projects'
     id = Column(String(), primary_key=True, nullable=False)
