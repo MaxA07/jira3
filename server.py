@@ -18,6 +18,9 @@ def get_db():
     finally:
         db.close()
 
+@app.get('/')
+def root():
+    return "status active"
 
 @app.get('/statuses')
 def status(db: Session = Depends(get_db)):
