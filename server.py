@@ -50,10 +50,11 @@ def get_data(db: Session = Depends(get_db)):
 def post_user(user: GetUserModel, db: Session = Depends(get_db)):
     result = addUser(user.name, user.position,
                      user.email, user.phone_number, db)
+
     return result
 
 
 @app.delete('/users/', include_in_schema=False)
-def delete_user(id, db: Session = Depends(get_db)):
-    result = delete_user_by_id(id, db)
+def delete_user(ids, db: Session = Depends(get_db)):
+    result = delete_user_by_id(ids, db)
     return result

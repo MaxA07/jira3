@@ -22,11 +22,13 @@ def addUser(user, position,
         raise HTTPException(status_code=500)
 
 
-def delete_user_by_id(id, db):
+def delete_user_by_id(ids, db):
     try:
-        record = db.query(Users).get(id)
-        db.delete(record)
+        ids_list = ids.split(',')
+        for id in ids_list:
+            record = db.query(Users).get(id)
+            db.delete(record)
         db.commit()
-        return id
+        return ids
     except:
         raise HTTPException(status_code=404, detail="not found")
