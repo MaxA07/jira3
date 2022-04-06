@@ -1,14 +1,11 @@
 from pydantic import BaseModel
 
 
-class GetStatusModel(BaseModel):
+class CreateStatusModel(BaseModel):
     name: str
 
 
-class SetStatusModel(BaseModel):
+class UpdateStatusModel(BaseModel):
     name: str
     id: str
 
-
-class DeleteStatusModel(BaseModel):
-    id: str
