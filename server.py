@@ -1,6 +1,6 @@
 from database import SessionLocal
 from controllers.status_controller import statuses, pushStatus, delete_status_by_id
-from controllers.users_controller import users, addUser, delete_user_by_id
+from controllers.users_controller import users, add_User, delete_user_by_id
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from cruds.StatusCrud import GetStatusModel
@@ -48,7 +48,7 @@ def get_data(db: Session = Depends(get_db)):
 
 @app.post('/users')
 def post_user(user: GetUserModel, db: Session = Depends(get_db)):
-    result = addUser(user.name, user.position,
+    result = add_User(user.name, user.position,
                      user.email, user.phone_number, db)
 
     return result
@@ -57,4 +57,10 @@ def post_user(user: GetUserModel, db: Session = Depends(get_db)):
 @app.delete('/users/', include_in_schema=False)
 def delete_user(ids, db: Session = Depends(get_db)):
     result = delete_user_by_id(ids, db)
+    return result
+
+
+@app.get('/cards')
+def get_card(db: Session = Depends(get_db)):
+    result = cards(db)
     return result

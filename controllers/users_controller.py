@@ -10,7 +10,7 @@ def users(db):
         raise HTTPException(status_code=500)
 
 
-def addUser(user, position,
+def add_User(user, position,
             email, phone_number, db):
     try:
         user = Users(name=user, position=position,
