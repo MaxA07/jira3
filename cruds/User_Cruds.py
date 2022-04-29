@@ -13,7 +13,5 @@ class SetUserModel(BaseModel):
     id: str
 
 
-
-
 class DeleteUserModel(BaseModel):
     id: str

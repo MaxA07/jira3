@@ -1,7 +1,7 @@
 from controllers.status_controller import status_route
 from database import SessionLocal, get_db
 # from controllers.status_controller import statuses, push_status, delete_statuses_by_id
-from controllers.users_controller import users, addUser, delete_user_by_id
+from controllers.users_controller import users, addUser, delete_user_by_id, user_route
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from cruds.User_Cruds import GetUserModel
@@ -9,6 +9,7 @@ from cruds.User_Cruds import GetUserModel
 
 app = FastAPI(debug=True)
 app.include_router(status_route)
+app.include_router(user_route)
 
 
 @app.get('/')

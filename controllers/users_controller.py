@@ -1,7 +1,12 @@
 from models.Users import Users
-from fastapi import HTTPException
+from fastapi import HTTPException, APIRouter
+
+user_route = APIRouter(
+    prefix="/users"
+)
 
 
+@user_route.get('')
 def users(db):
     try:
         usersList = db.query(Users).all()
@@ -10,6 +15,7 @@ def users(db):
         raise HTTPException(status_code=500)
 
 
+@user_route.post('')
 def addUser(user, position,
             email, phone_number, db):
     try:
@@ -22,6 +28,7 @@ def addUser(user, position,
         raise HTTPException(status_code=500)
 
 
+@user_route.delete('/')
 def delete_user_by_id(ids, db):
     try:
         ids_list = ids.split(',')

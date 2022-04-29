@@ -8,6 +8,7 @@ status_route = APIRouter(
     prefix="/status"
 )
 
+
 @status_route.get('')
 def status(db: Session = Depends(get_db)):
     try:
@@ -42,6 +43,7 @@ def post_status(status: UpdateStatusModel, db: Session = Depends(get_db)):
         return status
     except:
             raise HTTPException(status_code=500)
+
 
 @status_route.delete('/')
 def delete_status(ids: str, db: Session = Depends(get_db)):
